@@ -6,12 +6,12 @@ definitions:
         type: string
       rtmp_url:
         type: string
-      stream_url:
+      stream_key:
         type: string
     required:
     - bbb_server_url
     - rtmp_url
-    - stream_url
+    - stream_key
     type: object
   models.BroadcasterResponse:
     properties:

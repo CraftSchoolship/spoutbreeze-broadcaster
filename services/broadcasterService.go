@@ -17,7 +17,7 @@ func ProcessBroadcasterRequest(request *models.BroadcasterRequest) error {
 		return err
 	}
 	
-	err = repositories.StoreStreamURL(request.StreamURL)
+	err = repositories.StoreStreamKey(request.StreamKey)
 	if err != nil {
 		return err
 	}

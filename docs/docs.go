@@ -77,7 +77,7 @@ const docTemplate = `{
             "required": [
                 "bbb_server_url",
                 "rtmp_url",
-                "stream_url"
+                "stream_key"
             ],
             "properties": {
                 "bbb_server_url": {
@@ -86,7 +86,7 @@ const docTemplate = `{
                 "rtmp_url": {
                     "type": "string"
                 },
-                "stream_url": {
+                "stream_key": {
                     "type": "string"
                 }
             }
