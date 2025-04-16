@@ -1,0 +1,65 @@
+basePath: /
+definitions:
+  models.BroadcasterRequest:
+    properties:
+      bbb_server_url:
+        type: string
+      rtmp_url:
+        type: string
+      stream_url:
+        type: string
+    required:
+    - bbb_server_url
+    - rtmp_url
+    - stream_url
+    type: object
+  models.BroadcasterResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  models.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for SpoutBreeze.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: SpoutBreeze API
+  version: "1.0"
+paths:
+  /broadcaster/joinBBB:
+    post:
+      parameters:
+      - description: Broadcaster Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.BroadcasterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.BroadcasterResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+schemes:
+- http
+swagger: "2.0"
