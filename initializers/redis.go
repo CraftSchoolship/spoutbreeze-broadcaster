@@ -4,6 +4,7 @@ import (
 	"context"
 	"os"
 	"log"
+	"fmt"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -13,12 +14,24 @@ var RedisContext = context.Background()
 
 func ConnectToRedis() {
 	redisPassword := os.Getenv("REDIS_PASSWORD")
+	redisHost := os.Getenv("REDIS_HOST")
+	redisPort := os.Getenv("REDIS_PORT")
 	if redisPassword == "" {
 		log.Fatalf("REDIS_PASSWORD environment variable not set")
 	}
 
+	if redisHost == "" {
+		log.Fatalf("REDIS_HOST environment variable not set")
+	}
+
+	if redisPort == "" {
+		log.Fatalf("REDIS_PORT environment variable not set")
+	}
+
+	redis_address := fmt.Sprintf("%s:%s",redisHost,redisPort )
+
 	RedisClient = redis.NewClient(&redis.Options{
-		Addr:     "127.0.0.1:6379", // Minikube Redis address
+		Addr:     redis_address, 
 		Password: redisPassword,
 		DB:       0,
 	})

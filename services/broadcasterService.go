@@ -4,6 +4,9 @@ import (
 	"log"
 	"testing"
 	"time"
+	"os"
+	"fmt"
+
 
 	"github.com/tebeka/selenium"
 	"spoutbreeze/models"
@@ -45,8 +48,23 @@ func StreamBBBSession(t *testing.T, BBB_URL string) {
 		"moon:options":   moonOptions,
 	}
 	
+	// Get environment variables for Selenium hub URL
+    minikubeIP := os.Getenv("MINIKUBE_IP")
+    moonPort := os.Getenv("MOON_PORT_4444")
+    
+    // Use default values if environment variables are not set
+    if minikubeIP == "" {
+        log.Println("MINIKUBE_IP environment variable not set. Using default:", minikubeIP)
+    }
+    if moonPort == "" {
+        log.Println("MOON_PORT_4444 environment variable not set. Using default:", moonPort)
+    }
+    
+    // Construct the Selenium hub URL
+    seleniumHubURL := fmt.Sprintf("http://%s:%s/wd/hub", minikubeIP, moonPort)
+
 	// Connect to Moon server
-	driver, err := selenium.NewRemote(caps, "http://192.168.49.2:32440/wd/hub")
+	driver, err := selenium.NewRemote(caps, seleniumHubURL)
 	if err != nil {
 		log.Fatalf("Error starting browser: %v", err)
 	}

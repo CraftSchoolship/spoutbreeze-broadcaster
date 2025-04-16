@@ -65,7 +65,14 @@ cd spoutbreeze
 Create a `.env` file in the project root:
 
 ```
-REDIS_PASSWORD=your_redis_password_here
+# Redis password used for authentication with the Redis instance
+REDIS_PASSWORD=your_secure_redis_password
+
+# The IP address of your Minikube or Kubernetes cluster, used to access services externally
+CLUSTER_IP=your_minikube_or_k8s_cluster_ip
+
+# The port on which the Moon Selenium Hub is exposed (e.g., 4444)
+MOON_SELENIUM_PORT=4444
 ```
 
 ### 3. Install dependencies
