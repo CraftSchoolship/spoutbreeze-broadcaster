@@ -38,6 +38,9 @@ info:
 paths:
   /broadcaster/joinBBB:
     post:
+      consumes:
+      - application/json
+      description: Join a BigBlueButton session
       parameters:
       - description: Broadcaster Request
         in: body
@@ -60,6 +63,9 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
+      summary: Join BBB
+      tags:
+      - Broadcaster
 schemes:
 - http
 swagger: "2.0"

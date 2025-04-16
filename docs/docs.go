@@ -26,9 +26,17 @@ const docTemplate = `{
     "paths": {
         "/broadcaster/joinBBB": {
             "post": {
+                "description": "Join a BigBlueButton session",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
+                "tags": [
+                    "Broadcaster"
+                ],
+                "summary": "Join BBB",
                 "parameters": [
                     {
                         "description": "Broadcaster Request",

@@ -9,18 +9,17 @@ import (
 )
 
 
-// JoinBBB godoc 
-// @Summary Join BBB
-// @Description Join a BigBlueButton session
-// @Tags Broadcaster
-// @Accept json
-
-// @Produce json
-// @Param request body models.BroadcasterRequest true "Broadcaster Request"
-// @Success 200 {object} models.BroadcasterResponse
-// @Failure 400 {object} models.ErrorResponse
-// @Failure 500 {object} models.ErrorResponse
-// @Router /broadcaster/joinBBB [post]
+// JoinBBB godoc
+// @Summary      Join BBB
+// @Description  Join a BigBlueButton session
+// @Tags         Broadcaster
+// @Accept       json
+// @Produce      json
+// @Param        request body models.BroadcasterRequest true "Broadcaster Request"
+// @Success      200 {object} models.BroadcasterResponse
+// @Failure      400 {object} models.ErrorResponse
+// @Failure      500 {object} models.ErrorResponse
+// @Router       /broadcaster/joinBBB [post]
 func JoinBBB(c *gin.Context) {
 	var request models.BroadcasterRequest
 
