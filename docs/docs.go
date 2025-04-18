@@ -75,11 +75,15 @@ const docTemplate = `{
         "models.BroadcasterRequest": {
             "type": "object",
             "required": [
+                "bbb_health_check_url",
                 "bbb_server_url",
                 "rtmp_url",
                 "stream_key"
             ],
             "properties": {
+                "bbb_health_check_url": {
+                    "type": "string"
+                },
                 "bbb_server_url": {
                     "type": "string"
                 },

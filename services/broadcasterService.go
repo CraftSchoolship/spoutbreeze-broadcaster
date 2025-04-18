@@ -5,6 +5,9 @@ import (
 	"testing"
 	"time"
 	"os"
+	"net/http"
+	"io"
+	"encoding/xml"
 	"fmt"
 
 
@@ -26,16 +29,16 @@ func ProcessBroadcasterRequest(request *models.BroadcasterRequest) error {
 	}
 	
 	// Launch selenium script in the background
-	go launchSeleniumScript(request.BBBServerURL)
+	go launchSeleniumScript(request.BBBServerURL,request.BBBHealthCheckURL)
 	
 	return nil
 }
 
-func launchSeleniumScript(bbbURL string) {
-	StreamBBBSession(nil, bbbURL)
+func launchSeleniumScript(bbbURL string ,BBBHealthCheckURL string) {
+	StreamBBBSession(nil, bbbURL, BBBHealthCheckURL)
 }
 
-func StreamBBBSession(t *testing.T, BBB_URL string) {
+func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 	// Configure Moon options with environment variables
 	moonOptions := map[string]interface{}{
 		"enableVideo": true,
@@ -69,6 +72,16 @@ func StreamBBBSession(t *testing.T, BBB_URL string) {
 		log.Fatalf("Error starting browser: %v", err)
 	}
 	defer driver.Quit()
+
+	err = driver.MaximizeWindow("")
+    if err != nil {
+        log.Printf("Warning: Failed to maximize window: %v", err)
+        // Alternative approach if maximize doesn't work
+        _, err = driver.ExecuteScript("window.resizeTo(screen.width, screen.height);", nil)
+        if err != nil {
+            log.Printf("Warning: Failed to resize window with JavaScript: %v", err)
+        }
+    }
 	
 	// Navigate to BigBlueButton URL
 	err = driver.Get(BBB_URL)
@@ -93,12 +106,59 @@ func StreamBBBSession(t *testing.T, BBB_URL string) {
 		time.Sleep(2 * time.Second)
 	}
 	
-	time.Sleep(600 * time.Second)
+	// End session after the meeting ends
+	// Wait for the session to end 
 	
 	sessionID := driver.SessionID()
 	if sessionID == "" {
 		log.Fatalf("Failed to retrieve session ID")
 	}
 	
+	// Create HTTP client
+	client := &http.Client{
+		Timeout: 10 * time.Second,
+	}
+
+	// Function to check if meeting is running
+	isMeetingRunning := func() bool {
+		resp, err := client.Get(BBBHealthCheckURL)
+		if err != nil {
+			log.Printf("Error checking meeting status: %v", err)
+			return false
+		}
+		defer resp.Body.Close()
+
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			log.Printf("Error reading response body: %v", err)
+			return false
+		}
+
+		// Parse XML response
+		var response struct {
+			ReturnCode string `xml:"returncode"`
+			Running    string `xml:"running"`
+		}
+		
+		err = xml.Unmarshal(body, &response)
+		if err != nil {
+			log.Printf("Error parsing XML response: %v", err)
+			return false
+		}
+		
+		return response.ReturnCode == "SUCCESS" && response.Running == "true"
+	}
+
+	// Check session status every 30 seconds
+	for {
+		if isMeetingRunning() {
+			log.Println("Meeting is still running, keeping session alive...")
+		} else {
+			log.Println("Meeting has ended, terminating session...")
+			break
+		}
+		time.Sleep(30 * time.Second)
+	}
+
 	log.Println("Streaming completed successfully")
 }
