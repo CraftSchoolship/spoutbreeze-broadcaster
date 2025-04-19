@@ -12,6 +12,7 @@ import (
 
 
 	"github.com/tebeka/selenium"
+	"github.com/sheva0914/selenium/chrome"
 	"spoutbreeze/models"
 	"spoutbreeze/repositories"
 )
@@ -44,11 +45,19 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 		"enableVideo": true,
 	}
 	
+	chromeCaps := chrome.Capabilities{
+		ExcludeSwitches: []string{"enable-automation"},
+		Args: []string{
+			"--start-maximized",
+		},
+	}
+	
 	// Define browser capabilities
 	caps := selenium.Capabilities{
 		"browserName":    "chrome",
 		"browserVersion": "133.0.6943.98-6",
 		"moon:options":   moonOptions,
+		"goog:chromeOptions": chromeCaps,
 	}
 	
 	// Get environment variables for Selenium hub URL
@@ -73,15 +82,15 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 	}
 	defer driver.Quit()
 
-	err = driver.MaximizeWindow("")
-    if err != nil {
-        log.Printf("Warning: Failed to maximize window: %v", err)
-        // Alternative approach if maximize doesn't work
-        _, err = driver.ExecuteScript("window.resizeTo(screen.width, screen.height);", nil)
-        if err != nil {
-            log.Printf("Warning: Failed to resize window with JavaScript: %v", err)
-        }
-    }
+	// err = driver.MaximizeWindow("")
+    // if err != nil {
+    //     log.Printf("Warning: Failed to maximize window: %v", err)
+    //     // Alternative approach if maximize doesn't work
+    //     _, err = driver.ExecuteScript("window.resizeTo(screen.width, screen.height);", nil)
+    //     if err != nil {
+    //         log.Printf("Warning: Failed to resize window with JavaScript: %v", err)
+    //     }
+    // }
 	
 	// Navigate to BigBlueButton URL
 	err = driver.Get(BBB_URL)
@@ -105,8 +114,39 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 		listenOnlyButton.Click()
 		time.Sleep(2 * time.Second)
 	}
+
+	// Find and click the close button on the popup
+	closeButton, err := driver.FindElement(selenium.ByCSSSelector, "button[aria-label='Close Session Details']")
+	if err != nil {
+		// Try alternate selectors if the first one doesn't work
+		closeButton, err = driver.FindElement(selenium.ByCSSSelector, "button.sc-fhzFiK.dIxYkk")
+		if err != nil {
+			// Try by ID
+			closeButton, err = driver.FindElement(selenium.ByID, "tippy-38")
+			if err != nil {
+				// Try by data-test attribute
+				closeButton, err = driver.FindElement(selenium.ByCSSSelector, "button[data-test='closeModal']")
+				if err != nil {
+					log.Printf("Warning: Failed to find close button: %v", err)
+				}
+			}
+		}
+	}
 	
-	// End session after the meeting ends
+	if closeButton != nil {
+		err = closeButton.Click()
+		if err != nil {
+			log.Printf("Warning: Failed to click close button: %v", err)
+			// Try using JavaScript to click the button
+			_, err = driver.ExecuteScript("arguments[0].click();", []interface{}{closeButton})
+			if err != nil {
+				log.Printf("Warning: Failed to click close button with JavaScript: %v", err)
+			}
+		}
+		time.Sleep(2 * time.Second)
+	}
+
+	
 	// Wait for the session to end 
 	
 	sessionID := driver.SessionID()
@@ -157,7 +197,7 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 			log.Println("Meeting has ended, terminating session...")
 			break
 		}
-		time.Sleep(30 * time.Second)
+		time.Sleep(20 * time.Second)
 	}
 
 	log.Println("Streaming completed successfully")
