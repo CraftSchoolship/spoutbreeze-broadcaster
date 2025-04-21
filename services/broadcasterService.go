@@ -118,31 +118,12 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 	// Find and click the close button on the popup
 	closeButton, err := driver.FindElement(selenium.ByCSSSelector, "button[aria-label='Close Session Details']")
 	if err != nil {
-		// Try alternate selectors if the first one doesn't work
-		closeButton, err = driver.FindElement(selenium.ByCSSSelector, "button.sc-fhzFiK.dIxYkk")
-		if err != nil {
-			// Try by ID
-			closeButton, err = driver.FindElement(selenium.ByID, "tippy-38")
-			if err != nil {
-				// Try by data-test attribute
-				closeButton, err = driver.FindElement(selenium.ByCSSSelector, "button[data-test='closeModal']")
-				if err != nil {
-					log.Printf("Warning: Failed to find close button: %v", err)
-				}
-			}
-		}
-	}
-	
-	if closeButton != nil {
-		err = closeButton.Click()
-		if err != nil {
-			log.Printf("Warning: Failed to click close button: %v", err)
-			// Try using JavaScript to click the button
-			_, err = driver.ExecuteScript("arguments[0].click();", []interface{}{closeButton})
+		log.Printf("Warning: Failed to find close button: %v", err)
+	} else {
+		_, err = driver.ExecuteScript("arguments[0].click();", []interface{}{closeButton})
 			if err != nil {
 				log.Printf("Warning: Failed to click close button with JavaScript: %v", err)
 			}
-		}
 		time.Sleep(2 * time.Second)
 	}
 
