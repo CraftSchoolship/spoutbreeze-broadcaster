@@ -2,6 +2,7 @@ package main
 
 import (
     "log"
+	"os"
 	"spoutbreeze/initializers"
     "spoutbreeze/routes"
 
@@ -35,8 +36,12 @@ func main() {
 	router := routes.SetupRouter()
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	
-	err := router.Run(":8080")
+
+	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = "1323" // Default port
+	}
+	err := router.Run(":" + PORT)
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
