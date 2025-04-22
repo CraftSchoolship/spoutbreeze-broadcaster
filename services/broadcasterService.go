@@ -182,16 +182,19 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 		return response.ReturnCode == "SUCCESS" && response.Running == "true"
 	}
 
-	// Check session status every 30 seconds
+	var meetingWasRunning bool
+	// Check session status every 20 seconds
 	for {
-		if isMeetingRunning() {
-			log.Println("Meeting is still running, keeping session alive...")
-		} else {
-			log.Println("Meeting has ended, terminating session...")
-			break
+		meetingRunning := isMeetingRunning()
+		if meetingRunning != meetingWasRunning {
+			if meetingRunning {
+				log.Println("Meeting is still running, keeping session alive...")
+			} else {
+				log.Println("Meeting has ended, terminating session...")
+			}
+			meetingWasRunning = meetingRunning
 		}
 		time.Sleep(20 * time.Second)
 	}
-
 	log.Println("Streaming completed successfully")
 }
