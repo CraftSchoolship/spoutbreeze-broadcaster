@@ -14,7 +14,6 @@ import (
 
 func init() {
 	initializers.LoadEnvVariables()
-	initializers.ConnectToRedis()
 }
 
 //  @title SpoutBreeze API

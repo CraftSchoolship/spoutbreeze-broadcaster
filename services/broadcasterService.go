@@ -62,13 +62,14 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rt
 			"--use-fake-ui-for-media-stream",
 			"--use-fake-device-for-media-stream",
 			"--autoplay-policy=no-user-gesture-required",
+			"--audio-output-channels=2",
 		},
 	}
 	
 	// Define browser capabilities
 	caps := selenium.Capabilities{
 		"browserName":    "chrome",
-		"browserVersion": "0.0.1.9",
+		"browserVersion": "0.0.2.6",
 		"moon:options":   moonOptions,
 		"goog:chromeOptions": chromeCaps,
 	}
