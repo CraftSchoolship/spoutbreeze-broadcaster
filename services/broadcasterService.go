@@ -40,29 +40,36 @@ func launchSeleniumScript(bbbURL string ,BBBHealthCheckURL string) {
 }
 
 func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
+
+	// Get environment variables for Selenium hub URL
+    minikubeIP := os.Getenv("MINIKUBE_IP")
+    moonPort := os.Getenv("MOON_PORT_4444")
+	RedisPassword := os.Getenv("REDIS_PASSWORD")
 	// Configure Moon options with environment variables
 	moonOptions := map[string]interface{}{
-		"enableVideo": true,
+		"enableVideo": false,
+		"env": []string{"USER_REDIS_PASSWORD=" + RedisPassword},
 	}
+	// Configure Chrome options}
 	
 	chromeCaps := chrome.Capabilities{
 		ExcludeSwitches: []string{"enable-automation"},
 		Args: []string{
 			"--start-maximized",
+			"--use-fake-ui-for-media-stream",
+			"--use-fake-device-for-media-stream",
+			"--autoplay-policy=no-user-gesture-required",
 		},
 	}
 	
 	// Define browser capabilities
 	caps := selenium.Capabilities{
 		"browserName":    "chrome",
-		"browserVersion": "133.0.6943.98-6",
+		"browserVersion": "0.0.1.3",
 		"moon:options":   moonOptions,
 		"goog:chromeOptions": chromeCaps,
 	}
-	
-	// Get environment variables for Selenium hub URL
-    minikubeIP := os.Getenv("MINIKUBE_IP")
-    moonPort := os.Getenv("MOON_PORT_4444")
+
     
     // Use default values if environment variables are not set
     if minikubeIP == "" {
@@ -95,7 +102,7 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 	// Navigate to BigBlueButton URL
 	err = driver.Get(BBB_URL)
 	if err != nil {
-		log.Fatalf("Failed to navigate to YouTube: %v", err)
+		log.Fatalf("Failed to navigate to BigBlueButton: %v", err)
 	}
 	
 	// Wait for page load
