@@ -14,32 +14,32 @@ import (
 	"github.com/tebeka/selenium"
 	"github.com/sheva0914/selenium/chrome"
 	"spoutbreeze/models"
-	"spoutbreeze/repositories"
+	// "spoutbreeze/repositories"
 )
 
 func ProcessBroadcasterRequest(request *models.BroadcasterRequest) error {
 	// Store RTMP URL and Stream URL in Redis
-	err := repositories.StoreRTMPURL(request.RTMPURL)
-	if err != nil {
-		return err
-	}
+	// err := repositories.StoreRTMPURL(request.RTMPURL)
+	// if err != nil {
+	// 	return err
+	// }
 	
-	err = repositories.StoreStreamKey(request.StreamKey)
-	if err != nil {
-		return err
-	}
+	// err = repositories.StoreStreamKey(request.StreamKey)
+	// if err != nil {
+	// 	return err
+	// }
 	
 	// Launch selenium script in the background
-	go launchSeleniumScript(request.BBBServerURL,request.BBBHealthCheckURL)
+	go launchSeleniumScript(request.BBBServerURL,request.BBBHealthCheckURL, request.RTMPURL, request.StreamKey)
 	
 	return nil
 }
 
-func launchSeleniumScript(bbbURL string ,BBBHealthCheckURL string) {
-	StreamBBBSession(nil, bbbURL, BBBHealthCheckURL)
+func launchSeleniumScript(bbbURL string ,BBBHealthCheckURL string,rtmp_url string, stream_key string) {
+	StreamBBBSession(nil, bbbURL, BBBHealthCheckURL, rtmp_url, stream_key)
 }
 
-func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
+func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rtmp_url string, stream_key string) {
 
 	// Get environment variables for Selenium hub URL
     minikubeIP := os.Getenv("MINIKUBE_IP")
@@ -48,7 +48,10 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 	// Configure Moon options with environment variables
 	moonOptions := map[string]interface{}{
 		"enableVideo": false,
-		"env": []string{"USER_REDIS_PASSWORD=" + RedisPassword},
+		"env": []string{"USER_REDIS_PASSWORD=" + RedisPassword,
+			"RTMP_BASE_URL=" + rtmp_url,
+			"Twitch_KEY=" + stream_key,
+	},
 	}
 	// Configure Chrome options}
 	
@@ -65,7 +68,7 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string) {
 	// Define browser capabilities
 	caps := selenium.Capabilities{
 		"browserName":    "chrome",
-		"browserVersion": "0.0.1.3",
+		"browserVersion": "0.0.1.9",
 		"moon:options":   moonOptions,
 		"goog:chromeOptions": chromeCaps,
 	}
