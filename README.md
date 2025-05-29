@@ -4,12 +4,11 @@
 
 SpoutBreeze BBB Broadcaster is a Go-based backend service that enables broadcasting BigBlueButton (BBB) sessions via RTMP streams. It provides a simple REST API endpoint that accepts streaming parameters and automatically joins a BBB session as a moderator to start broadcasting.
 
-The service integrates with Redis for storing stream configuration data and uses Selenium WebDriver to automate browser interactions with BigBlueButton sessions, making it ideal for automated broadcasting, recording, or stream redistribution workflows.
+The service uses Selenium WebDriver to automate browser interactions with BigBlueButton sessions, making it ideal for automated broadcasting, recording, or stream redistribution workflows.
 
 ## Features
 
 - RESTful API endpoint for initiating BBB broadcasting sessions
-- Redis integration for storing stream configuration
 - Automated browser interaction with BigBlueButton using Selenium
 - Containerization support with Docker and Kubernetes/Minikube
 - Environment variable configuration
@@ -17,7 +16,6 @@ The service integrates with Redis for storing stream configuration data and uses
 ## Technology Stack
 
 - **Backend**: Go (Golang) with Gin framework
-- **Storage**: Redis
 - **Browser Automation**: Selenium WebDriver with Chrome
 - **Container Orchestration**: Kubernetes/Minikube
 - **Deployment**: Docker
@@ -26,17 +24,14 @@ The service integrates with Redis for storing stream configuration data and uses
 
 ```
 spoutbreeze/
-├── .env                         # Environment variables including Redis password
+├── .env                         # Environment variables
 ├── main.go                      # Entry point that initializes and runs the server
 ├── controllers/
 │   └── broadcasterController.go # Handles HTTP requests
 ├── initializers/
-│   ├── loadEnvVariables.go      # Loads environment variables
-│   └── redis.go                 # Sets up Redis connection
+│   └── loadEnvVariables.go      # Loads environment variables
 ├── models/
 │   └── broadcaster.go           # Data structures for the API
-├── repositories/
-│   └── redisRepository.go       # Data access layer for Redis
 ├── routes/
 │   └── routes.go                # API route definitions
 ├── services/
@@ -47,7 +42,6 @@ spoutbreeze/
 ## Prerequisites
 
 - Go 1.18 or later
-- Redis server (running on Kubernetes/Minikube at 192.168.49.2:6379)
 - Kubernetes/Minikube with Moon Selenium Grid installed
 - Chrome browser in Moon Selenium Grid
 
@@ -65,14 +59,14 @@ cd spoutbreeze
 Create a `.env` file in the project root:
 
 ```
-# Redis password used for authentication with the Redis instance
-REDIS_PASSWORD=your_secure_redis_password
-
 # The IP address of your Minikube or Kubernetes cluster, used to access services externally
 CLUSTER_IP=your_minikube_or_k8s_cluster_ip
 
 # The port on which the Moon Selenium Hub is exposed (e.g., 4444)
 MOON_SELENIUM_PORT=4444
+
+# Default gin server port
+PORT=1323
 ```
 
 ### 3. Install dependencies
@@ -93,6 +87,85 @@ go build -o spoutbreeze
 ./spoutbreeze
 ```
 
+## Testing
+
+The project uses Ginkgo and Gomega testing frameworks for comprehensive testing of the application.
+
+### Installing Test Dependencies
+
+```bash
+# Install Ginkgo and Gomega
+go get -u github.com/onsi/ginkgo/v2/ginkgo
+go get -u github.com/onsi/gomega
+go install github.com/onsi/ginkgo/v2/ginkgo@latest
+```
+
+### Running Tests
+
+The project includes several testing options via the Makefile:
+
+```bash
+# Run all standard tests (excluding Selenium-dependent tests)
+make test
+
+# Run tests with verbose output
+make test-verbose
+
+# Run only controller tests 
+make test-controllers
+
+# Run tests with code coverage report
+make test-coverage
+
+# Continuously run tests when files change (watch mode)
+make test-watch
+
+# Run tests for CI environments with JUnit reports
+make test-ci
+```
+
+### Test Coverage
+
+To generate a test coverage report:
+
+```bash
+make test-coverage
+```
+
+This will create an HTML coverage report (`coverage.html`) that you can view in any browser.
+
+### Test Structure
+
+The tests are organized by component:
+
+1. **Controller Tests**: Test the API endpoints and request handling
+   - Located in `controllers/tests/`
+   - Use mocked services to isolate from external dependencies
+
+2. **Service Tests**: Test the business logic
+   - Located in `services/tests/`
+   - Some tests may require Selenium and are skipped by default
+
+3. **Integration Tests**: Test the full flow from request to processing
+   - Located at project root level
+
+### Writing New Tests
+
+To generate new test files for a package:
+
+```bash
+# Replace 'package_name' with the target package
+ginkgo generate package_name
+```
+
+For more complex packages that require test suites:
+
+```bash
+cd package_name
+ginkgo bootstrap
+ginkgo generate file_name
+```
+
 ## Docker Deployment
 
 ### 1. Build the Docker image
@@ -105,64 +178,6 @@ docker build -t spoutbreeze:latest .
 
 ```bash
 docker run -p 8080:8080 --env-file .env spoutbreeze:latest
-```
-
-## Kubernetes/Minikube Deployment
-
-### 1. Create Kubernetes deployment file
-
-Create a file named `deployment.yaml`:
-
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: spoutbreeze
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: spoutbreeze
-  template:
-    metadata:
-      labels:
-        app: spoutbreeze
-    spec:
-      containers:
-      - name: spoutbreeze
-        image: spoutbreeze:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: redis-credentials
-              key: password
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: spoutbreeze
-spec:
-  selector:
-    app: spoutbreeze
-  ports:
-  - port: 8080
-    targetPort: 8080
-  type: LoadBalancer
-```
-
-### 2. Create a secret for Redis credentials
-
-```bash
-kubectl create secret generic redis-credentials --from-literal=password=your_redis_password_here
-```
-
-### 3. Deploy to Kubernetes
-
-```bash
-kubectl apply -f deployment.yaml
 ```
 
 ## API Documentation
@@ -214,10 +229,6 @@ Initiates a BigBlueButton session join and prepares for broadcasting.
 
 #### 1. Initializers
 
-**Redis Connection:**
-- Establishes a connection to the Redis server running on Minikube (192.168.49.2:6379)
-- Uses the password from environment variables for authentication
-
 **Environment Variables:**
 - Loads configuration from the `.env` file
 
@@ -237,16 +248,10 @@ Handles HTTP requests to the API endpoint:
 #### 4. Services
 
 Contains the core business logic:
-- Stores RTMP and Stream URLs in Redis
 - Launches a Selenium script in the background to join the BBB session
 - Implements the `StreamBBBSession` function that automates the browser interaction with BBB
 
-#### 5. Repositories
-
-Manages data storage operations:
-- Handles Redis SET operations for storing stream configuration
-
-#### 6. Routes
+#### 5. Routes
 
 Defines API routes:
 - Configures the `/broadcaster/joinBBB` endpoint
@@ -266,22 +271,11 @@ The `StreamBBBSession` function performs the following actions:
 
 ### Common Issues
 
-#### 1. Redis Connection Failure
-**Symptoms:** Error messages about Redis connection failures.
-**Solution:** 
-- Verify the Redis service is running in Minikube
-- Check the Redis password in the `.env` file
-- Ensure network connectivity to the Minikube Redis service
-
-```bash
-kubectl get svc -n redis
-```
-
-#### 2. Selenium Connection Issues
+#### 1. Selenium Connection Issues
 **Symptoms:** "Error starting browser" messages.
 **Solution:**
 - Verify the Moon Selenium Grid is running
-- Check the Moon service endpoint (192.168.49.2:32440)
+- Check the Moon service endpoint (e.g., 192.168.49.2:32440)
 - Ensure Chrome browser is available in the Moon container
 
 ```bash
@@ -289,12 +283,26 @@ kubectl get pods -n moon
 kubectl logs <moon-pod-name> -n moon
 ```
 
-#### 3. BigBlueButton Join Problems
+#### 2. BigBlueButton Join Problems
 **Symptoms:** "Failed to navigate" or no "Listen only" button found.
 **Solution:**
 - Verify the BBB URL is valid and contains required parameters
 - Check BBB server health
 - Verify the session is actually running on the BBB server
+
+#### 3. Test Failures
+**Symptoms:** Tests failing with connection errors to Selenium.
+**Solution:**
+- For basic tests, use `make test` which skips Selenium-dependent tests
+- For Selenium tests, ensure the Moon Selenium Grid is running and accessible
+- Mock external services in tests using the provided test helpers
+
+```bash
+# Check if the test environment variables are set correctly
+cat .env
+# Run tests that don't rely on external dependencies
+make test-controllers
+```
 
 ## Contributing
 
@@ -304,10 +312,8 @@ kubectl logs <moon-pod-name> -n moon
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-
 ## Acknowledgments
 
 - [Gin Web Framework](https://github.com/gin-gonic/gin)
-- [go-redis](https://github.com/redis/go-redis)
 - [Selenium](https://github.com/tebeka/selenium)
 - [BigBlueButton](https://bigbluebutton.org/)

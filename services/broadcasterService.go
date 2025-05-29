@@ -51,6 +51,7 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rt
 		"env": []string{"USER_REDIS_PASSWORD=" + RedisPassword,
 			"RTMP_BASE_URL=" + rtmp_url,
 			"Twitch_KEY=" + stream_key,
+			"BBBHealthCheckURL=" + BBBHealthCheckURL,
 	},
 	}
 	// Configure Chrome options}

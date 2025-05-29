@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <testsuites tests="22" disabled="0" errors="0" failures="0" time="0.006466723">
+      <testsuite name="Controllers Suite" package="/home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests" tests="22" disabled="0" skipped="0" errors="0" failures="0" time="0.006323235" timestamp="2025-05-29T12:11:51">
+          <properties>
+              <property name="SuiteSucceeded" value="true"></property>
+              <property name="SuiteHasProgrammaticFocus" value="false"></property>
+              <property name="SpecialSuiteFailureReason" value=""></property>
+              <property name="SuiteLabels" value="[]"></property>
+              <property name="RandomSeed" value="1748517098"></property>
+              <property name="RandomizeAllSpecs" value="true"></property>
+              <property name="LabelFilter" value=""></property>
+              <property name="FocusStrings" value=""></property>
+              <property name="SkipStrings" value=""></property>
+              <property name="FocusFiles" value=""></property>
+              <property name="SkipFiles" value=""></property>
+              <property name="FailOnPending" value="true"></property>
+              <property name="FailOnEmpty" value="false"></property>
+              <property name="FailFast" value="false"></property>
+              <property name="FlakeAttempts" value="0"></property>
+              <property name="DryRun" value="false"></property>
+              <property name="ParallelTotal" value="1"></property>
+              <property name="OutputInterceptorMode" value=""></property>
+          </properties>
+          <testcase name="[BeforeSuite]" classname="Controllers Suite" status="passed" time="9.7833e-05">
+              <system-err>&gt; Enter [BeforeSuite] TOP-LEVEL - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/controllers_suite_test.go:15 @ 05/29/25 12:11:51.768&#xA;Setting up Controllers test suite...&#xA;&lt; Exit [BeforeSuite] TOP-LEVEL - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/controllers_suite_test.go:15 @ 05/29/25 12:11:51.768 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller HealthCheck when using POST method should return method not allowed" classname="Controllers Suite" status="passed" time="0.000149058">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.769 (0s)&#xA;&gt; Enter [It] should return method not allowed - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:53 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [It] should return method not allowed - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:53 @ 05/29/25 12:11:51.769 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller HTTP Method validation when using GET method instead of POST should return method not allowed" classname="Controllers Suite" status="passed" time="0.000103053">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.769 (0s)&#xA;&gt; Enter [It] should return method not allowed - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:134 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [It] should return method not allowed - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:134 @ 05/29/25 12:11:51.769 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller JoinBBB when invalid JSON is provided should return bad request error" classname="Controllers Suite" status="passed" time="0.000199282">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.769 (0s)&#xA;&gt; Enter [It] should return bad request error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:70 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [It] should return bad request error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:70 @ 05/29/25 12:11:51.769 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller (with mocking) JoinBBB with service mocking when service returns success should return success response" classname="Controllers Suite" status="passed" time="0.000328558">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.769 (0s)&#xA;&gt; Enter [It] should return success response - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:70 @ 05/29/25 12:11:51.769&#xA;&lt; Exit [It] should return success response - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:70 @ 05/29/25 12:11:51.77 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller JoinBBB when service processing fails should return internal server error" classname="Controllers Suite" status="passed" time="0.000223308">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.77&#xA;&lt; Exit [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.77 (0s)&#xA;&gt; Enter [It] should return internal server error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:115 @ 05/29/25 12:11:51.77&#xA;&lt; Exit [It] should return internal server error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:115 @ 05/29/25 12:11:51.77 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller ReadinessCheck when readiness endpoint is called should return ready status" classname="Controllers Suite" status="passed" time="0.000154894">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.77&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.77 (0s)&#xA;&gt; Enter [It] should return ready status - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:77 @ 05/29/25 12:11:51.77&#xA;&lt; Exit [It] should return ready status - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:77 @ 05/29/25 12:11:51.77 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller ReadinessCheck when controller is properly initialized should create a new health controller instance" classname="Controllers Suite" status="passed" time="0.000514496">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.771&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.771 (0s)&#xA;&gt; Enter [It] should create a new health controller instance - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:105 @ 05/29/25 12:11:51.771&#xA;&lt; Exit [It] should create a new health controller instance - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:105 @ 05/29/25 12:11:51.771 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller (with mocking) JoinBBB with service mocking when service returns error should return internal server error" classname="Controllers Suite" status="passed" time="0.000314964">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.771&#xA;&lt; Exit [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.771 (0s)&#xA;&gt; Enter [It] should return internal server error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:98 @ 05/29/25 12:11:51.771&#xA;&lt; Exit [It] should return internal server error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:98 @ 05/29/25 12:11:51.771 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller HealthCheck when health endpoint is called should return healthy status" classname="Controllers Suite" status="passed" time="0.000124085">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.772 (0s)&#xA;&gt; Enter [It] should return healthy status - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:36 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [It] should return healthy status - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:36 @ 05/29/25 12:11:51.772 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller (with mocking) JoinBBB with various inputs malformed JSON" classname="Controllers Suite" status="passed" time="0.000124491">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.772 (0s)&#xA;&gt; Enter [It] malformed JSON - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:143 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [It] malformed JSON - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:143 @ 05/29/25 12:11:51.772 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller Response format validation when health endpoint is called should return valid JSON structure" classname="Controllers Suite" status="passed" time="0.000105114">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.772 (0s)&#xA;&gt; Enter [It] should return valid JSON structure - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:116 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [It] should return valid JSON structure - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:116 @ 05/29/25 12:11:51.772 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller (with mocking) JoinBBB with various inputs invalid JSON" classname="Controllers Suite" status="passed" time="0.000105578">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.772 (0s)&#xA;&gt; Enter [It] invalid JSON - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:142 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [It] invalid JSON - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:142 @ 05/29/25 12:11:51.772 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller ReadinessCheck when using POST method should return method not allowed" classname="Controllers Suite" status="passed" time="8.152e-05">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.772 (0s)&#xA;&gt; Enter [It] should return method not allowed - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:94 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [It] should return method not allowed - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:94 @ 05/29/25 12:11:51.772 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller JoinBBB when empty request body is provided should return bad request error" classname="Controllers Suite" status="passed" time="9.1482e-05">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.772 (0s)&#xA;&gt; Enter [It] should return bad request error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:89 @ 05/29/25 12:11:51.772&#xA;&lt; Exit [It] should return bad request error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:89 @ 05/29/25 12:11:51.772 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller (with mocking) JoinBBB with various inputs empty request" classname="Controllers Suite" status="passed" time="0.000140231">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.773 (0s)&#xA;&gt; Enter [It] empty request - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:141 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [It] empty request - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:141 @ 05/29/25 12:11:51.773 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller Response format validation when readiness endpoint is called should return valid JSON structure" classname="Controllers Suite" status="passed" time="9.9115e-05">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.773 (0s)&#xA;&gt; Enter [It] should return valid JSON structure - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:134 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [It] should return valid JSON structure - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:134 @ 05/29/25 12:11:51.773 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Health Controller HealthCheck when using invalid path should return not found" classname="Controllers Suite" status="passed" time="7.927e-05">
+              <system-err>&gt; Enter [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [BeforeEach] Health Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:22 @ 05/29/25 12:11:51.773 (0s)&#xA;&gt; Enter [It] should return not found - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:64 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [It] should return not found - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/health_test.go:64 @ 05/29/25 12:11:51.773 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller JoinBBB when content-type is not application/json should return bad request error" classname="Controllers Suite" status="passed" time="0.000106626">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.773 (0s)&#xA;&gt; Enter [It] should return bad request error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:102 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [It] should return bad request error - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:102 @ 05/29/25 12:11:51.773 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller (with mocking) JoinBBB with various inputs valid request" classname="Controllers Suite" status="passed" time="0.000276094">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [BeforeEach] Broadcaster Controller (with mocking) - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:59 @ 05/29/25 12:11:51.773 (0s)&#xA;&gt; Enter [It] valid request - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:140 @ 05/29/25 12:11:51.773&#xA;&lt; Exit [It] valid request - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/mocked_broadcaster_test.go:140 @ 05/29/25 12:11:51.773 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[It] Broadcaster Controller JoinBBB when valid request is provided should return success response" classname="Controllers Suite" status="passed" time="0.000478573">
+              <system-err>&gt; Enter [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.774&#xA;&lt; Exit [BeforeEach] Broadcaster Controller - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:35 @ 05/29/25 12:11:51.774 (0s)&#xA;&gt; Enter [It] should return success response - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:44 @ 05/29/25 12:11:51.774&#xA;&lt; Exit [It] should return success response - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/broadcaster_test.go:44 @ 05/29/25 12:11:51.774 (0s)&#xA;</system-err>
+          </testcase>
+          <testcase name="[AfterSuite]" classname="Controllers Suite" status="passed" time="0.000221532">
+              <system-err>&gt; Enter [AfterSuite] TOP-LEVEL - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/controllers_suite_test.go:19 @ 05/29/25 12:11:51.774&#xA;Tearing down Controllers test suite...&#xA;&lt; Exit [AfterSuite] TOP-LEVEL - /home/bouchiba/pfe/spoutbreeze-rtmp-svc/controllers/tests/controllers_suite_test.go:19 @ 05/29/25 12:11:51.774 (0s)&#xA;</system-err>
+          </testcase>
+      </testsuite>
+      <testsuite name="SpoutbreezeRtmpSvc Suite" package="/home/bouchiba/pfe/spoutbreeze-rtmp-svc" tests="0" disabled="0" skipped="0" errors="0" failures="0" time="0.000143488" timestamp="2025-05-29T12:12:00">
+          <properties>
+              <property name="SuiteSucceeded" value="true"></property>
+              <property name="SuiteHasProgrammaticFocus" value="false"></property>
+              <property name="SpecialSuiteFailureReason" value=""></property>
+              <property name="SuiteLabels" value="[]"></property>
+              <property name="RandomSeed" value="1748517098"></property>
+              <property name="RandomizeAllSpecs" value="true"></property>
+              <property name="LabelFilter" value=""></property>
+              <property name="FocusStrings" value=""></property>
+              <property name="SkipStrings" value=""></property>
+              <property name="FocusFiles" value=""></property>
+              <property name="SkipFiles" value=""></property>
+              <property name="FailOnPending" value="true"></property>
+              <property name="FailOnEmpty" value="false"></property>
+              <property name="FailFast" value="false"></property>
+              <property name="FlakeAttempts" value="0"></property>
+              <property name="DryRun" value="false"></property>
+              <property name="ParallelTotal" value="1"></property>
+              <property name="OutputInterceptorMode" value=""></property>
+          </properties>
+      </testsuite>
+  </testsuites>
