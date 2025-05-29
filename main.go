@@ -1,12 +1,15 @@
 package main
 
 import (
-    "log"
+	"log"
 	"os"
 	"spoutbreeze/initializers"
-    "spoutbreeze/routes"
+	"spoutbreeze/routes"
+
+	"github.com/gin-gonic/gin"
 
 	_ "spoutbreeze/docs" // This is for Swagger documentation
+
 
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -32,6 +35,8 @@ func init() {
 //	@Schemes	http
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
+
 	router := routes.SetupRouter()
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

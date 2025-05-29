@@ -42,7 +42,7 @@ func launchSeleniumScript(bbbURL string ,BBBHealthCheckURL string,rtmp_url strin
 func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rtmp_url string, stream_key string) {
 
 	// Get environment variables for Selenium hub URL
-    minikubeIP := os.Getenv("MINIKUBE_IP")
+    minikubeIP := os.Getenv("CLUSTER_IP")
     moonPort := os.Getenv("MOON_PORT_4444")
 	RedisPassword := os.Getenv("REDIS_PASSWORD")
 	// Configure Moon options with environment variables
@@ -69,7 +69,7 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rt
 	// Define browser capabilities
 	caps := selenium.Capabilities{
 		"browserName":    "chrome",
-		"browserVersion": "0.0.2.6",
+		"browserVersion": "0.0.1.9",
 		"moon:options":   moonOptions,
 		"goog:chromeOptions": chromeCaps,
 	}
@@ -77,7 +77,7 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rt
     
     // Use default values if environment variables are not set
     if minikubeIP == "" {
-        log.Println("MINIKUBE_IP environment variable not set. Using default:", minikubeIP)
+        log.Println("CLUSTER_IP environment variable not set. Using default:", minikubeIP)
     }
     if moonPort == "" {
         log.Println("MOON_PORT_4444 environment variable not set. Using default:", moonPort)
@@ -207,5 +207,5 @@ func StreamBBBSession(t *testing.T, BBB_URL string, BBBHealthCheckURL string, rt
 		}
 		time.Sleep(20 * time.Second)
 	}
-	log.Println("Streaming completed successfully")
+	
 }

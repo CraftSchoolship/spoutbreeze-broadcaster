@@ -13,5 +13,10 @@ func SetupRouter() *gin.Engine {
 		broadcasterGroup.POST("/joinBBB", controllers.JoinBBB)
 	}
 
+	healthController := controllers.NewHealthController()
+	router.GET("/health", healthController.HealthCheck)
+	router.GET("/readiness", healthController.ReadinessCheck)
+
+
 	return router
 }
