@@ -26,6 +26,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: Setup environment variables
+        run: |
+          echo "GIN_MODE=${{ env.GIN_MODE }}" >> .env
+          echo "CLUSTER_IP=${{ secrets.CLUSTER_IP }}" >> .env
+          echo "MOON_PORT_4444=${{ secrets.MOON_PORT_4444 }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
